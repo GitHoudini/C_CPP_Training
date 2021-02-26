@@ -64,21 +64,14 @@ void get_number(struct node *root, int pos) {
 	printf ("%d\n",listWatch->data);
 }
 
-void remove_number(struct node *root, int data) {
-
-}
-
-void last_number(struct node *root) {
-
-}
-
 int main(int argc, char *argv[]) {
 	char input[201];
 
 	//Inicio da lista
 	struct node *root;
+	int init = 0;
 	root = (struct node*)malloc(sizeof(struct node));
-	root->data = 2147483647;
+	root->data = 0;
 	root->next = 0;
 
 	while(1) {
@@ -98,9 +91,10 @@ int main(int argc, char *argv[]) {
 
 		if (strncmp(cmdStr, "put", 3) == 0) {			
 			//Caso seja o primeiro dado, senao, corre pela lista
-			if (root->data == 2147483647){
+			if (init == 0){
 				root->data = dado;
 				print_list(root);
+				init = 1;
 			}
 			else {
 				put_number(root, dado);
@@ -112,37 +106,30 @@ int main(int argc, char *argv[]) {
 		}
 
 		if (strncmp(cmdStr, "list", 4) == 0) {
-			if (root->data == 2147483647){
+			if (init == 0){
 				printf("Lista vazia\n");
 			} else {
 				print_list(root);	
 			}
 		}
 
-		if (strncmp(cmdStr, "remove", 6) == 0) {
-			remove_number(root,dado);
-			print_list(root);
-		}
-
 		if (strncmp(cmdStr, "clear", 5) == 0) {
-			root->data = 2147483647;
+			root->data = 0;
 			root->next = 0;
+			init = 0;
 		}
 
 		if (strncmp(cmdStr, "first", 5) == 0) {
-			if (root->data == 2147483647){
+			if (init == 0){
 				printf("Lista vazia\n");
 			} else {
 				printf("%d\n",root->data);	
 			}
 		}
 
-		if (strncmp(cmdStr, "last", 4) == 0) {
-			last_number(root);
-		}
-
 		if (strncmp(cmdStr, "exit", 4) == 0) {
 			printf("Leaving. Good bye.\n");
+			break;
 		}
 
 	}
